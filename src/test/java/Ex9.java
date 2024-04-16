@@ -1,5 +1,4 @@
 import io.restassured.RestAssured;
-import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +17,8 @@ public class Ex9 {
                 "888888", "princess", "dragon", "password1", "123qwe"
         );
 
-        for(String password: passwords){
+            // Перебираем пароли и получаем Cookie
+        for (String password : passwords) {
             Response response = RestAssured
                     .given()
                     .formParam("login", login)
@@ -26,21 +26,24 @@ public class Ex9 {
                     .when()
                     .post("https://playground.learnqa.ru/ajax/api/get_secret_password_homework")
                     .andReturn();
-
             String authCookie = response.getCookie("auth_cookie");
-            System.out.println(authCookie);
 
+            //Проверяем полученные Cookie, выводим правильный пароль
             response = RestAssured
                     .given()
                     .cookie("auth_cookie", authCookie)
                     .when()
                     .get("https://playground.learnqa.ru/ajax/api/check_auth_cookie")
                     .andReturn();
-
-            response.prettyPrint();
-
-
+            String check = response.asString();
+            if (check.equals("You are authorized")) {
+                System.out.println("Статус: " + check);
+                System.out.println("Верный пароль: " + password);
+            }
         }
 
-    }}
+
+    }
+
+}
 

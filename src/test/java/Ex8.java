@@ -13,7 +13,7 @@ public class Ex8 {
                 .jsonPath();
         String token = response.getString("token");
         int seconds = response.getInt("seconds");
-        System.out.println("Токен:" + token);
+        System.out.println("Токен: " + token);
 
         // 2. Делаем один запрос с token ДО того, как задача готова, убеждемся в правильности поля status
         JsonPath earlyResponse = RestAssured
@@ -23,7 +23,7 @@ public class Ex8 {
                 .get(url)
                 .jsonPath();
         String earlyStatus = earlyResponse.getString("status");
-        System.out.println("Статус:" + earlyStatus);
+        System.out.println("Статус: " + earlyStatus);
 
         // 3. Ждем нужное количество секунд
         Thread.sleep(seconds * 1000);
@@ -37,7 +37,7 @@ public class Ex8 {
                 .andReturn();
         String lateStatus = lateResponse.jsonPath().getString("status");
         String result = lateResponse.jsonPath().getString("result");
-        System.out.println("Статус:" + lateStatus);
-        System.out.println("Поле результат:" + result);
+        System.out.println("Статус: " + lateStatus);
+        System.out.println("Поле результат: " + result);
     }
 }
