@@ -24,10 +24,9 @@ public class BaseTestCase {
         return cookies.get(name);
 
     }
-/*
-    protected int getIntFromJson(Response response, String name) {
+
+    protected static int getIntFromJson(Response response, String name) {
         Response.then().assertThat().body("$",hasKey(name));
         return Response.jsonPath().getInt(name);
     }
-*/
 }
