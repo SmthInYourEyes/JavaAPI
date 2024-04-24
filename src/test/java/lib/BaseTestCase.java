@@ -5,6 +5,7 @@ import io.restassured.response.Response;
 
 import java.util.Map;
 
+import static org.hamcrest.Matchers.hasKey;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BaseTestCase {
@@ -23,6 +24,10 @@ public class BaseTestCase {
         return cookies.get(name);
 
     }
-
+/*
+    protected int getIntFromJson(Response response, String name) {
+        Response.then().assertThat().body("$",hasKey(name));
+        return Response.jsonPath().getInt(name);
+    }
+*/
 }
-

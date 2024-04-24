@@ -3,9 +3,12 @@ package tests;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import lib.BaseTestCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,15 +35,15 @@ public class UserAuthTests extends BaseTestCase {
 
         this.cookie = this.getCookie(responseGetAuth, "auth_id");
         this.header = this.getHeader(responseGetAuth, "x-csrf-token");
-        this.userIdOnAuth = responseGetAuth.jsonPath().getInt("user_id");
+      //  this.userIdOnAuth = this.getIntFromJson(responseGetAuth,"user_id");
     }
 
     @Test
-    public void testAuthUser(){
+    public void testAuthUser() {
         JsonPath responseCheckAuth = RestAssured
                 .given()
                 .header("x-csrf-token", this.header)
-                .cookie("auth_sid",this.cookie)
+                .cookie("auth_sid", this.cookie)
                 .get(" https://playground.learnqa.ru/api/user/auth")
                 .jsonPath();
 
@@ -54,5 +57,21 @@ public class UserAuthTests extends BaseTestCase {
         );
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"cookie", "headers"})
+    public void testNegativeAuthUser(String condition) {
+        RequestSpecification spec = RestAssured.given();
+        spec.baseUri(" https://playground.learnqa.ru/api/user/login");
 
+        if(condition.equals("cookie")) {
+            spec.cookie("auth_sid", this.cookie);
+        } else if (condition.equals("headers")){
+            spec.header("x-csrf-token", this.header);
+        } else {
+            throw new IllegalArgumentException("Condition value is known" + condition);
+        }
+
+        JsonPath responseForCheck = spec.get().jsonPath();
+        assertEquals(0, responseForCheck.getInt("user_id"), "user_id should be 0 for unauth request");
+    }
 }

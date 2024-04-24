@@ -19,23 +19,21 @@ public class Ex13 {
             "Mozilla/5.0 (iPad; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"})
     public void userAgent(String userAgent) {
         Map<String, String> queryParams = new HashMap<>();
-        queryParams.put("user_agent", userAgent);
+        queryParams.put("User-Agent", userAgent);
 
         //
         JsonPath response = RestAssured
                 .given()
-                .header("user_agent",queryParams)
+                .header("User-Agent",queryParams)
                 .get(" https://playground.learnqa.ru/ajax/api/user_agent_check")
                 .jsonPath();
-        String userAgentRes = response.get("user_agent");
         String platform = response.get("platform");
         String browser = response.get("browser");
         String device = response.get("device");
 
-        System.out.println(userAgentRes);
-        System.out.println(platform);
-        System.out.println(browser);
-        System.out.println(device);
+        System.out.println("Platform: " + platform);
+        System.out.println("Browser: " + browser);
+        System.out.println("Device: " + device);
 
     }
 
