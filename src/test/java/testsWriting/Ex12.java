@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Ex12 {
     @Test
-    public void cookieTest() {
+    public void headerTest() {
         //Узнаем что за header
         Response response = RestAssured
                 .get(" https://playground.learnqa.ru/api/homework_header")
@@ -19,7 +19,7 @@ public class Ex12 {
         System.out.println(headers);
 
         //Сравнивем полученный header с ожидаемым
-        String cookie = response.getHeader("x-secret-homework-header");
-        assertEquals("Some secret value", cookie);
+        String header = response.getHeader("x-secret-homework-header");
+        assertEquals("Some secret value", header);
     }
 }
