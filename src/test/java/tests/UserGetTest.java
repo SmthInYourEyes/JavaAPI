@@ -1,9 +1,13 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import lib.Assertions;
 import lib.BaseTestCase;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -12,10 +16,13 @@ import java.util.Map;
 
 import lib.ApiCoreRequests;
 
+@Epic("Get user cases")
 public class UserGetTest extends BaseTestCase {
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
     @Test
+    @Description("This test get user data w/o authorization")
+    @DisplayName("Test not authorized user")
     public void testGetUserDataNotAuth() {
         Response responseUserData = RestAssured
                 .get("https://playground.learnqa.ru/api/user/2")
@@ -28,6 +35,8 @@ public class UserGetTest extends BaseTestCase {
     }
 
     @Test
+    @Description("This test get same user data with authorization")
+    @DisplayName("Test authorized user")
     public void testGetUserDetailsAuthAsSameUser() {
         Map<String, String> authData = new HashMap<>();
         authData.put("email", "vinkotov@example.com");
@@ -49,6 +58,8 @@ public class UserGetTest extends BaseTestCase {
     }
 
     @Test
+    @Description("This test get another user data with authorization")
+    @DisplayName("Test authorized user")
     public void testGetUserDetailsAuthAsAnotherUser() {
 
         //Создание пользователя
