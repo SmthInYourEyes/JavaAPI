@@ -17,6 +17,7 @@ import java.util.Map;
 import lib.ApiCoreRequests;
 
 @Epic("Get user cases")
+@Feature("Get")
 public class UserGetTest extends BaseTestCase {
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 

@@ -1,7 +1,8 @@
 package tests;
 
 import io.qameta.allure.Description;
-import io.restassured.RestAssured;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
@@ -14,6 +15,8 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+@Epic("Edit user cases")
+@Feature("Edit")
 public class UserEditTest extends BaseTestCase {
 
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
@@ -88,8 +91,7 @@ public class UserEditTest extends BaseTestCase {
                 editData);
 
         Assertions.assertResponseCodeEquals(responseEditUser, 400);
-        Assertions.assertJsonHasField(responseEditUser, "error");
-        Assertions.assertResponseTextEquals(responseEditUser, "{\"error\":\"Auth token not supplied\"}");
+        Assertions.assertJsonByName(responseEditUser, "error","Auth token not supplied");
     }
 
     @Description("Тест проверяет изменение имени у авторизированного другого пользователя")
@@ -130,8 +132,7 @@ public class UserEditTest extends BaseTestCase {
         );
 
         Assertions.assertResponseCodeEquals(responseEditUser, 400);
-        Assertions.assertJsonHasField(responseEditUser, "error");
-        Assertions.assertResponseTextEquals(responseEditUser, "{\"error\":\"Auth token not supplied\"}");
+        Assertions.assertJsonByName(responseEditUser, "error","Auth token not supplied");
     }
 
     @Description("Тест проверяет изменение email на невалидный")
@@ -172,8 +173,7 @@ public class UserEditTest extends BaseTestCase {
         );
 
         Assertions.assertResponseCodeEquals(responseEditUser, 400);
-        Assertions.assertJsonHasField(responseEditUser, "error");
-        Assertions.assertResponseTextEquals(responseEditUser, "{\"error\":\"Invalid email format\"}");
+        Assertions.assertJsonByName(responseEditUser, "error","Invalid email format");
     }
 
 
@@ -215,8 +215,7 @@ public class UserEditTest extends BaseTestCase {
         );
 
         Assertions.assertResponseCodeEquals(responseEditUser, 400);
-        Assertions.assertJsonHasField(responseEditUser, "error");
-        Assertions.assertResponseTextEquals(responseEditUser, "{\"error\":\"The value for field `firstName` is too short\"}");
+        Assertions.assertJsonByName(responseEditUser, "error","The value for field `firstName` is too short");
     }
 
 }
