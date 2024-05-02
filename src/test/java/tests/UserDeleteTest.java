@@ -1,8 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
@@ -22,6 +20,9 @@ public class UserDeleteTest extends BaseTestCase {
 
     @Description("Тест проверяет невозможность удаления пользоваетля с ID = 2")
     @DisplayName("Тест проверяет невозможность удаления пользоваетля с ID = 2")
+    @Owner("Shustov Evgenii")
+    @TmsLink("TMS-12347")
+    @Issue("DEL-12347")
     @Test
     public void testDeleteOldUserWithoutAuth() {
         //Авторизируемся
@@ -50,6 +51,9 @@ public class UserDeleteTest extends BaseTestCase {
 
     @Description("Тест проверяет удаление авторизированного пользователя")
     @DisplayName("Тест проверяет удаление авторизированного пользователя")
+    @Owner("Shustov Evgenii")
+    @TmsLink("TMS-12347")
+    @Issue("DEL-12347")
     @Test
     public void testDeleteNewUserWithAuth() {
         //Создаем пользователя
@@ -96,6 +100,9 @@ public class UserDeleteTest extends BaseTestCase {
     @Description("Тест проверяет удаление другого пользователя")
     @DisplayName("Тест проверяет удаление другого пользователя")
     @Test
+    @Owner("Shustov Evgenii")
+    @TmsLink("TMS-12348")
+    @Issue("DEL-12348")
     public void testDeleteNewUserWithAnotherAuth() {
         //Создаем пользователя
         Map<String, String> userData = DataGenerator.getRegistrationData();

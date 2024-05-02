@@ -1,8 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lib.BaseTestCase;
@@ -41,6 +39,9 @@ public class UserAuthTests extends BaseTestCase {
     @Test
     @Description("This test successfully authorize user by email and password")
     @DisplayName("Test positive auth user")
+    @Owner("Shustov Evgenii")
+    @TmsLink("TMS-12345")
+    @Issue("AUTH-12345")
     public void testAuthUser() {
         Response responseCheckAuth = apiCoreRequests
                 .makeGetRequest("https://playground.learnqa.ru/api/user/auth",
@@ -55,6 +56,9 @@ public class UserAuthTests extends BaseTestCase {
     @DisplayName("Test negative auth user")
     @ParameterizedTest
     @ValueSource(strings = {"cookie", "headers"})
+    @Owner("Shustov Evgenii")
+    @TmsLink("TMS-12346")
+    @Issue("AUTH-12346")
     public void testNegativeAuthUser(String condition) {
 
         if (condition.equals("cookie")) {

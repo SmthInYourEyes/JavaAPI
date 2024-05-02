@@ -1,8 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import lib.Assertions;
@@ -24,6 +22,9 @@ public class UserGetTest extends BaseTestCase {
     @Test
     @Description("This test get user data w/o authorization")
     @DisplayName("Test not authorized user")
+    @Owner("Shustov Evgenii")
+    @TmsLink("TMS-12349")
+    @Issue("GET-12349")
     public void testGetUserDataNotAuth() {
         Response responseUserData = RestAssured
                 .get("https://playground.learnqa.ru/api/user/2")
@@ -38,6 +39,9 @@ public class UserGetTest extends BaseTestCase {
     @Test
     @Description("This test get same user data with authorization")
     @DisplayName("Test authorized user")
+    @Owner("Shustov Evgenii")
+    @TmsLink("TMS-12350")
+    @Issue("GET-12350")
     public void testGetUserDetailsAuthAsSameUser() {
         Map<String, String> authData = new HashMap<>();
         authData.put("email", "vinkotov@example.com");
@@ -61,6 +65,9 @@ public class UserGetTest extends BaseTestCase {
     @Test
     @Description("This test get another user data with authorization")
     @DisplayName("Test authorized user")
+    @Owner("Shustov Evgenii")
+    @TmsLink("TMS-12351")
+    @Issue("GET-12351")
     public void testGetUserDetailsAuthAsAnotherUser() {
 
         //Создание пользователя
